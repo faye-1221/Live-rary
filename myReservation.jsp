@@ -65,102 +65,77 @@ table {
 		out.println("<script>alert('로그아웃 되었습니다.')</script>");
 		out.println("<script>window.open('index.html','_self')</script>");
 	}
+
+	request.setCharacterEncoding("UTF-8");
+
+	Connection con = null;
+	PreparedStatement pstmt = null;
+	String sql = null;
+	ResultSet rs = null;
+
+	String driverName = "com.mysql.jdbc.Driver";
+	String dbURL = "jdbc:mysql://gyudb.ddns.net:41000/liverary";
+
+	sql = "SELECT * FROM reservation where user_id = ?";
+
+	try {
+
+		Class.forName(driverName);
+		con = DriverManager.getConnection(dbURL, "liverary", "4321");
+
+		pstmt = con.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
+		pstmt.setString(1, id);
+
+		/* String book_id = null;
+		String date = null; */
+		rs = pstmt.executeQuery();
 	%>
-	<header>
-		<img src="image/logo_transparent_light.png" height="60" alt="LIVE-RARY" onclick="window.open('userMain.jsp','_self')">
-		<form action="bookSearch.jsp">
-			<input type="text" name="searchValue" placeholder="도서 이름 입력"> <input type="submit" value="검색">
-		</form>
-		<nav>
-			<a href="myPage.jsp"><%=id%> 님</a> <span onclick="logout()" style="margin-left: 20px">로그아웃</span>
-		</nav>
-	</header>
-	<nav class="mainMenu">
-		<a href="userMain.jsp">알림</a> <a href="myCheckOut.jsp">대출 목록</a> <a href="myReservation.jsp" style="font-weight: bold;">예약 목록</a>
-	</nav>
+	<table>
+		<tHead>
+			<%
+			if (rs.next()) {
+				out.println("<tr>\n<th>책 등록 번호</th>\n<th>책 제목</th>\n<th>예약한 일자</th>\n<th>예약 순번</th>\n<th>예약 취소</th>\n</tr>");
+				rs.beforeFirst();
+			} else {
+				out.println("<tr class='noResult'><th>예약한 이력이 없습니다.</th></tr>");
+			}
+			%>
+		</tHead>
+		<tBody>
+			<%
+			while (rs.next()) {
+			%>
+			<tr>
+				<td><%=rs.getString("book_id")%></td>
+				<td><%=rs.getString("book_name")%></td>
+				<td><%=rs.getString("date")%></td>
+				<td>
+					<%
+					if (0 == rs.getInt("priorities"))
+						out.print("대출 가능");
+					else
+						out.print(rs.getString("priorities"));
+					%>
+				</td>
+				<td><input type="button" id="<%=rs.getString("book_name")%>" value="예약 삭제" onclick=del_reservation(this.id) /></td>
+			</tr>
 
-	<section id="section" style="margin-top: 10px">
-		<%
-		request.setCharacterEncoding("UTF-8");
-
-		Connection con = null;
-		PreparedStatement pstmt = null;
-		String sql = null;
-		ResultSet rs = null;
-
-		String driverName = "com.mysql.jdbc.Driver";
-		String dbURL = "jdbc:mysql://gyudb.ddns.net:41000/liverary";
-
-		sql = "SELECT * FROM reservation where user_id = ?";
-
-		try {
-
-			Class.forName(driverName);
-			con = DriverManager.getConnection(dbURL, "liverary", "4321");
-
-			pstmt = con.prepareStatement(sql, ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-			pstmt.setString(1, id);
-
-			/* String book_id = null;
-			String date = null; */
-			rs = pstmt.executeQuery();
-		%>
-		<table>
-			<tHead>
-				<%
-				if (rs.next()) {
-					out.println("<tr>\n<th>책 등록 번호</th>\n<th>책 제목</th>\n<th>예약한 일자</th>\n<th>예약 순번</th>\n<th>예약 취소</th>\n</tr>");
-					rs.beforeFirst();
-				} else {
-					out.println("<tr class='noResult'><th>예약한 이력이 없습니다.</th></tr>");
-				}
-				%>
-			</tHead>
-			<tBody>
-				<%
-				while (rs.next()) {
-				%>
-				<tr>
-					<td><%=rs.getString("book_id")%></td>
-					<td><%=rs.getString("book_name")%></td>
-					<td><%=rs.getString("date")%></td>
-					<td>
-						<%
-						if (0 == rs.getInt("priorities"))
-							out.print("대출 가능");
-						else
-							out.print(rs.getString("priorities"));
-						%>
-					</td>
-					<td><input type="button" id="<%=rs.getString("book_name")%>" value="예약 삭제" onclick=del_reservation(this.id) /></td>
-				</tr>
-
-				<%
-				}
-				%>
-			</tBody>
-		</table>
-		<%
-		} catch (Exception e) {
-		out.println("MySql 데이터베이스 접속에 문제가 있습니다. <hr>");
-		out.println(e.getMessage());
-		e.printStackTrace();
-		} finally {
-		if (pstmt != null)
-			pstmt.close();
-		if (con != null)
-			con.close();
-		}
-		%>
-	</section>
-
-
-
-	<footer>
-		<img src="image/kongju_logo.png" height="50" alt="LIVE-RARY">
-		<nav style="font-size: 13px; margin-left: 50px; text-align: left;">
-			<span style="margin-right: 5px; font-weight: 550">Developer</span><br> <span>201801743 김규빈</span><br> <span>201801828 홍상혁</span><br> <span>202001834 진민주</span><br>
-		</nav>
-	</footer>
+			<%
+			}
+			%>
+		</tBody>
+	</table>
+	<%
+	} catch (Exception e) {
+	out.println("MySql 데이터베이스 접속에 문제가 있습니다. <hr>");
+	out.println(e.getMessage());
+	e.printStackTrace();
+	} finally {
+	if (pstmt != null)
+		pstmt.close();
+	if (con != null)
+		con.close();
+	}
+	%>
 </body>
 </html>

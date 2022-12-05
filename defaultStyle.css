@@ -21,13 +21,14 @@
 	text-align:center;
 	background-color: #887575;
 	color: #F6E8E8;
-	padding: 1rem;
+	height: 35px;
 }
-.mainMenu a {
-	color: #F6E8E8;
-	padding-left: 1rem;
-	padding-right: 1rem;
-	text-decoration:none;
+.mainMenu button {
+	background-color: transparent;
+	margin-left: 30px;
+	border: 0;
+	outline: 0;
+	height: 35px;
 }
 body::before {
     position: fixed;
@@ -123,12 +124,13 @@ header input[type="text"],header input[type="password"] {
 	border: 2px solid #F6E8E8;
 	border-radius:2px;
 }
-header input[type="submit"], header input[type="submit"]:hover, header input[type="submit"]:active {
+header input[type="submit"], header input[type="submit"]:hover, header input[type="submit"]:active, select {
 	padding:12px;
 	border-radius:2px;
 	background-color:#F6E8E8;
 	color:#213458;
 }
+
 header input:focus{
 	outline:none;
 }

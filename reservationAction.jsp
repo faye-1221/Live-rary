@@ -67,5 +67,5 @@ try {
  %>
 
 <script>
-	window.open("myReservation.jsp", "_self");
+	window.open("userMain.jsp", "_self");
 </script>

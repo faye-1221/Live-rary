@@ -9,7 +9,6 @@ request.setCharacterEncoding("UTF-8");
 String bookId = request.getParameter("bookId");
 String userId = (String)session.getAttribute("id");
 Date rtn_date = null;
-//https://extbrain.tistory.com/58
 
 
 Connection con = null;
@@ -66,5 +65,5 @@ try {
 }
 %>
 <script>
-	window.open("myCheckOut.jsp", "_self");
+	window.open("userMain.jsp", "_self");
 </script>
