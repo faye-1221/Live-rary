@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>로그인 - LIVE-RARY</title>
+<link type="text/css" rel="stylesheet" href="./signupStyle.css">
+<style>
+.centerSection {
+	width:300px;
+}
+nav {
+	text-align:center;
+}
+form {
+	margin:0;
+	padding:10px;
+	width:auto;
+}
+</style>
+<script>
+function onlyAlphabet(ele) {
+  ele.value = ele.value.replace(/[^\\!-z]/gi,"");
+}
+</script>
+</head>
+<body>
+<nav>
+	<img src="image/logo_transparent_light.png" height="100" alt="LIVE-RARY" style="margin-top:75px;margin-bottom:50px;" onclick="window.location.reload()">
+</nav>
+
+<section class="centerSection">
+<h2>로그인</h2>
+<form action="loginAction.jsp" method="post">
+	<label>아이디<input type="text" name="id" placeholder="ID" oninput="onlyAlphabet(this)"></label>
+	<label>비밀번호<input type="password" name="password" placeholder="password" oninput="onlyAlphabet(this)"></label><br>
+	<span class="strech">
+		<input type="button" value="회원가입" onclick="window.open('signup.html', '_self');" style="width:49%;">
+		<input type="submit" value="로그인" style="width:49%;">
+	</span>
+</form>
+</section>
+</body>
+</html>
