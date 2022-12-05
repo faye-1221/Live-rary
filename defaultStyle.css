@@ -1,0 +1,217 @@
+@charset "UTF-8";
+.strech{
+	display:flex;
+	flex-direction:column;
+	justify-content:space-between;
+}
+.centerSection {
+	position: relative;
+	display:flex;
+	flex-direction:column;
+	width:auto;/* 대출, 반납 폼을 전체 감싸는 section의 넓이 조절 */
+	margin-left:auto;
+	margin-right:auto;
+	margin-top:20px;
+	margin-bottom:20px;
+	background-color: #fefaec;
+	border-radius: 5px;
+	padding:5px;
+}
+.mainMenu {
+	text-align:center;
+	background-color: #887575;
+	color: #F6E8E8;
+	padding: 1rem;
+}
+.mainMenu a {
+	color: #F6E8E8;
+	padding-left: 1rem;
+	padding-right: 1rem;
+	text-decoration:none;
+}
+body::before {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+	background-image: linear-gradient( rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3) ),url(image/main_bg.jpg);
+    background-size: cover;
+    -webkit-filter: blur(5px); 
+    -moz-filter: blur(5px); 
+    -o-filter: blur(5px); 
+    -ms-filter: blur(5px); 
+    filter: blur(5px);
+    transform: scale(1.02);
+    z-index: -1; 
+    content: "";
+}
+body {
+	display:flex;
+	flex-direction:column;
+	min-width:800px;
+	min-height: calc(100vh);
+	margin:0px;
+	padding-top:0px;
+	color: #625772;
+	background-color:#ffffff;
+}
+footer {
+	padding:10px;
+	color:#F6E8E8;
+	background-color:#887575;
+	display: flex;
+	margin-top:auto;
+}
+form {
+	padding:15px;
+	font-size:15px;
+}
+form label {
+	font-size:15px;
+	display:flex;
+	align-items:center;
+}
+form label input[type="text"], form label input[type="password"] {
+	margin-left:auto;
+}
+form label.error {
+	display:block;
+	width:185px; /* 수정할 값 */
+	height:22px;
+	margin-top:-2px;
+	margin-left:auto;
+	font-size:12px;
+}
+form legend {
+	font-size:17px;
+	font-weight:550;
+	padding:10px 0px 5px;
+}
+
+h2{
+	margin:10px;
+}
+header {
+	z-index:100;
+	position:sticky;
+	padding-left:1rem;
+	padding-right:1rem;
+	top:0;
+	height:75px;
+	color: #F6E8E8;
+	background-color: #213458;
+	font-weight: bold;
+	display: flex;
+	justify-content:space-between;
+	align-items: center;
+}
+header a {
+	text-decoration:none;
+	color:#F6E8E8;
+}
+header input[type="text"],header input[type="password"] {
+	width:calc(100vw - 700px);
+	min-width:200px;
+	max-width:500px;
+	background-color:#213458;
+	color:#F6E8E8;
+	font-size:15px;
+	font-weight:500;
+	height:17px;
+	padding:11px 10px 9px;
+	border: 2px solid #F6E8E8;
+	border-radius:2px;
+}
+header input[type="submit"], header input[type="submit"]:hover, header input[type="submit"]:active {
+	padding:12px;
+	border-radius:2px;
+	background-color:#F6E8E8;
+	color:#213458;
+}
+header input:focus{
+	outline:none;
+}
+header input::placeholder {
+  color:#F6E8E8;
+  font-weight: 300;
+}
+header img, header span {
+	cursor:pointer;
+}
+fieldset {
+	border: 0px solid #002953;
+	font-size:15px;
+	padding:0px;
+	margin:0px;
+}
+
+input[type="button"], input[type="submit"] {
+	text-decoration:none;
+	background-color:#625772;
+	color:#fefaec;
+	font-weight:600;
+	padding:5px;
+	margin-top:2px;
+	margin-bottom:2px;
+	border-radius:2px;
+	border: 0px solid #625772;
+}
+input[type="button"]:hover, input[type="submit"]:hover {
+	background-color:#9287a2;
+}
+input[type="button"]:active, input[type="submit"]:active {
+	background-color:#322742;
+}
+input[type="button"]:disabled{
+	background-color:#c2b7d2;
+	color:#e2d7f2;
+}
+input[type="text"], input[type="password"] {
+	background-color:#ffffff;
+	color:#625772;
+	font-weight:600;
+	width:165px;
+	margin:2px;
+	padding:6px 5px 4px;
+	border: 1px solid #9287a2;
+	border-radius:2px;
+}
+input:focus{
+	outline:none;
+}
+input::placeholder {
+  color:#625772;
+  font-weight: 300;
+}
+table{
+	text-align:center;
+	margin-top:10px;
+	margin-bottom:10px;
+	margin-left:auto;
+	margin-right:auto;
+	border-spacing: 0 0;
+	
+}
+tHead tr, tHead th {
+	background-color: rgba( 255, 255, 255, 0 );
+	color:#F6E8E8;
+}
+th, td{
+	padding-top:10px;
+	padding-bottom:10px;
+	padding-left:10px;
+	padding-right:10px;
+}
+tr:first-child td:first-child { border-top-left-radius: 5px; }
+tr:first-child td:last-child { border-top-right-radius: 5px; }
+
+tr:last-child td:first-child { border-bottom-left-radius: 5px; }
+tr:last-child td:last-child { border-bottom-right-radius: 5px; }
+
+tBody tr:nth-child(odd){
+	background-color:#fefaec;
+}
+tBody tr:nth-child(even){
+	background-color:#f7f0d9;
+}

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>회원가입 - LIVE-RARY</title>
+<link type="text/css" rel="stylesheet" href="./signupStyle.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<style>
+.centerSection {
+	width:310px;
+}
+input[type="submit"] {
+	text-decoration:none;
+	background-color:#625772;
+	color:#fefaec;
+	font-weight:bold;
+	font-size:20px;
+	width:100%;
+	border-radius:2px;
+	border: 0px solid #625772;
+}
+input[type="text"], input[type="password"] {
+	width:159px;
+}
+</style>
+<script>
+function onlyAlphabet(ele) {
+	ele.value = ele.value.replace(/[^\\!-z]/gi,"");
+}
+function onlyNumber(ele) {
+	ele.value = ele.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');
+}
+var idCheck = false;
+var pwCheck = false;
+var pwcCheck = false;
+var nameCheck = false;
+var telCheck = false;
+
+function checkForm(){
+	if(checkAll()) {
+		if(confirm("회원가입 하시겠습니까?")){
+		    return true;
+		}
+	}
+	else {
+		alert("입력되지 않았거나 잘못 입력된 값이 있습니다.");
+	}
+    return false;
+}
+function checkAll() {
+	if(idCheck&&checkBlank("name", "nameLabel")&&checkBlank("tel", "telLabel")&&checkBlank("pw", "pwLabel")&&checkPWequal()){
+		return true;
+	}
+	else
+		return false;
+}
+function checkBlank(inputName, labelName) {
+	var input = document.getElementById(inputName);
+	if(input.value==""){
+		var label = document.getElementById(labelName);
+		label.innerHTML = "필수 정보입니다.";
+		label.style.color = "red";
+		return false;
+	}
+	else{
+		var label = document.getElementById(labelName);
+		label.innerHTML = "";
+		label.style.color = "green";
+		return true;
+	}
+}
+function checkPWequal() {
+	var newPW = document.getElementById("pw");
+	var newPWCheck = document.getElementById("pwCheck");
+	if(newPW.value==""){
+		var label = document.getElementById("pwCheckLabel");
+		return false;
+	}
+	else if(newPW.value==newPWCheck.value){
+		var label = document.getElementById("pwCheckLabel");
+		label.innerHTML = "비밀번호가 일치합니다.";
+		label.style.color = "green";
+		return true;
+	}
+	else {
+		var label = document.getElementById("pwCheckLabel");
+		label.innerHTML = "비밀번호가 일치하지 않습니다.";
+		label.style.color = "red";
+		return false;
+	}
+}
+$(document).ready(function(){
+	$('#id').on('blur', function() {
+		if($('#id').val()!=""){
+			$.ajax({
+				type: 'post',
+				url: 'signupAction.jsp',
+				//data: 'id='+$('#id').val()+'&pwd='+$('#pwd').val()+'&name='+$('#name').val(),
+				data: 'menu=1&id='+$('#id').val(),
+				success: function(data){
+					if(data!=null){
+						data=data.split("/결과/")[1];
+						if(data=="중복없음"){
+							$('#idLabel')
+								.html("사용 가능한 아이디 입니다.")
+								.css("color", "green");
+							idCheck=true;
+						}
+						else {
+							$('#idLabel')
+								.html("이미 사용중인 아이디 입니다.")
+								.css("color", "red");
+							idCheck=false;
+						}
+					}
+				},
+				error: function(err){
+					console.log(err);
+				}
+			});
+		}
+		else {
+			$('#idLabel')
+				.html("아이디를 입력해주세요.")
+				.css("color", "red");
+			idCheck=false;
+		}
+	});
+});
+</script>
+</head>
+<body>
+<header>
+	<img src="image/logo_transparent_light.png" height="60" alt="LIVE-RARY" onclick="window.open('index.html', '_self');">
+	<nav>
+		<span onclick="history.go(-1)">이전 페이지</span>
+	</nav>
+</header>
+<section class="centerSection">
+<h2>회원가입</h2>
+<form action="signupAction.jsp" method="post" name="signupForm" onsubmit="return checkForm();">
+	<label>아이디<input type="text" id="id" name="id" maxlength="20" placeholder="ID" oninput="onlyAlphabet(this)"></label>
+	<label id="idLabel" class="error"></label>
+	<label>비밀번호<input type="password" id="pw" name="password" maxlength="24" oninput="onlyAlphabet(this)" onblur="checkBlank(this.id, 'pwLabel')"></label>
+	<label id="pwLabel" class="error"></label>
+	<label>비밀번호 확인<input type="password" id="pwCheck" name="PWCheck" placeholder="password" maxlength="24" oninput="onlyAlphabet(this)" onblur="checkPWequal()"></label>
+	<label id="pwCheckLabel" class="error"></label>
+	<label>이름<input type="text" name="name" id="name" maxlength="15" placeholder="홍길동" onblur="checkBlank(this.id, 'nameLabel')"></label>
+	<label id="nameLabel" class="error"></label>
+	<label>전화번호<input type="text" name="tel" id="tel" maxlength="11" placeholder="01012345678" oninput="onlyNumber(this)" onblur="checkBlank(this.id, 'telLabel')"></label>
+	<label id="telLabel" class="error"></label><br>
+	<input type="submit" value="가입하기">
+</form>
+</section>
+</body>
+</html>

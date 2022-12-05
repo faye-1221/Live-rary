@@ -1,0 +1,129 @@
+@charset "UTF-8";
+.strech{
+	display:flex;
+	justify-content:space-between;
+}
+.centerSection {
+	position: relative;
+	display:flex;
+	flex-direction:column;
+	width:auto;/* 대출, 반납 폼을 전체 감싸는 section의 넓이 조절 */
+	margin-left:auto;
+	margin-right:auto;
+	margin-top:20px;
+	margin-bottom:20px;
+	background-color: #fefaec;
+	border-radius: 5px;
+}
+a {
+	color:#F6E8E8;
+}
+body {
+	display:flex;
+	flex-direction:column;
+	min-width:800px;
+	min-height: calc(100vh);
+	margin:0px;
+	color: #625772;
+	background: #213458;
+	font: "";
+}
+footer {
+	padding:10px;
+	color:#F6E8E8;
+	background-color:#887575;
+	display: flex;
+	margin-top:auto;
+}
+h2{
+	margin:10px;
+}
+header {
+	z-index:100;
+	position:sticky;
+	height: 50px;
+	padding: 1rem;
+	color: #F6E8E8;
+	background: #213458;
+	font-weight: bold;
+	display: flex;
+	justify-content:space-between;
+	align-items: center;
+}
+header a {
+	text-decoration:none;
+}
+header img, header span {
+	cursor:pointer;
+}
+form{
+	padding:10px;
+	color:#625772;
+	border-radius: 5px;
+}
+form label {
+	font-size:15px;
+	display:flex;
+	align-items:center;
+}
+fieldset {
+	border: 0px solid #002953;
+	font-size:15px;
+	padding:0px;
+	margin:0px;
+}
+label.error {
+	display:block;
+	width:185px;
+	height:22px;
+	margin-top:-2px;
+	margin-left:auto;
+	font-size:12px;
+}
+label input[type="text"], label input[type="password"] {
+	margin-left:auto;
+}
+legend {
+	font-weight:550;
+	padding:15px 0px 5px;
+}
+input[type="button"], input[type="submit"] {
+	text-decoration:none;
+	background-color:#625772;
+	color:#fefaec;
+	font-weight:600;
+	padding:12px 10px 12px;
+	border-radius:2px;
+	border: 0px solid #625772;
+}
+input[type="button"]:hover, input[type="submit"]:hover {
+	background-color:#9287a2;
+}
+input[type="button"]:active, input[type="submit"]:active {
+	background-color:#322742;
+}
+input[type="button"]:disabled{
+	background-color:#c2b7d2;
+	color:#e2d7f2;
+}
+input[type="text"], input[type="password"] {
+	vertical-align: 0px;
+	background-color:#ffffff;
+	color:#625772;
+	font-weight:550;
+	width:165px;
+	margin:2px;
+	padding:8px 10px 6px;
+	border: 1px solid #9287a2;
+	border-radius:2px;
+}
+input:focus{
+	outline:none;
+}
+input::placeholder {
+  color:#625772;
+  font-weight: 300;
+}
+section{
+	padding:5px;
+}
