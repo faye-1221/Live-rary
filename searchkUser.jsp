@@ -14,6 +14,7 @@
 %>
 <%!
 	String resultOk = null;
+	int getrow = 0;
 %>
 
 <%-- 유저 찾기 --%>
@@ -25,9 +26,10 @@
 	String resultid = null;
 	String resultname = null;
 	String resultHP = null;
-	int getrow = 0;
+	
 
 	try {
+		getrow = 0;
 		String driverName="com.mysql.jdbc.Driver";
 		String dbURL = "jdbc:mysql://gyudb.ddns.net:41000/liverary";
 		Class.forName(driverName);
@@ -44,7 +46,6 @@
 		
 
 		if(rs.next()){
-			getrow = 0;
 			resultid = rs.getString("id");
 			resultname = rs.getString("name");
 			resultHP = rs.getString("tel");
@@ -62,10 +63,15 @@
 					resultOk = "N&nbsp;(연체)";
 				getrow++;
 			}
-			if(getrow >= 5) {
-				resultOk = "N (대출 가능 수 초과)";
-				resultOk = resultOk.replaceAll(" ", "&nbsp;");
+			
+			if(getrow < 5) {
+				if(resultOk == null) {
+					resultOk = "Y";
+				} 
+			} else {
+				resultOk = "N&nbsp;(대출&nbsp;가능&nbsp;수&nbsp;초과)";
 			}
+
 		}
 		else {
 			resultid = "결과없음";

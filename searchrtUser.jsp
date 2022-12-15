@@ -33,7 +33,7 @@
 		
 %>
 <body>
-<table>
+<table style="width:830px">
 	<tHead>
 		<tr><th>유저ID</th><th>유저이름</th><th>책번호</th><th>책명</th></tr>
 	</tHead>

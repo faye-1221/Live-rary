@@ -31,10 +31,6 @@ function onlyNumber(ele) {
 	ele.value = ele.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');
 }
 var idCheck = false;
-var pwCheck = false;
-var pwcCheck = false;
-var nameCheck = false;
-var telCheck = false;
 
 function checkForm(){
 	if(checkAll()) {
@@ -48,7 +44,7 @@ function checkForm(){
     return false;
 }
 function checkAll() {
-	if(idCheck&&checkBlank("name", "nameLabel")&&checkBlank("tel", "telLabel")&&checkBlank("pw", "pwLabel")&&checkPWequal()){
+	if(checkBlank("id", 'idLabel')&&checkBlank("name", "nameLabel")&&checkBlank("tel", "telLabel")&&checkBlank("pw", "pwLabel")&&checkPWequal()){
 		return true;
 	}
 	else
@@ -89,44 +85,48 @@ function checkPWequal() {
 		return false;
 	}
 }
-$(document).ready(function(){
-	$('#id').on('blur', function() {
-		if($('#id').val()!=""){
-			$.ajax({
-				type: 'post',
-				url: 'signupAction.jsp',
-				//data: 'id='+$('#id').val()+'&pwd='+$('#pwd').val()+'&name='+$('#name').val(),
-				data: 'menu=1&id='+$('#id').val(),
-				success: function(data){
-					if(data!=null){
-						data=data.split("/결과/")[1];
-						if(data=="중복없음"){
-							$('#idLabel')
-								.html("사용 가능한 아이디 입니다.")
-								.css("color", "green");
-							idCheck=true;
-						}
-						else {
-							$('#idLabel')
-								.html("이미 사용중인 아이디 입니다.")
-								.css("color", "red");
-							idCheck=false;
-						}
-					}
-				},
-				error: function(err){
-					console.log(err);
-				}
-			});
+var request = null;
+function createRequest() {
+	try {
+		request = new XMLHttpRequest();
+	} catch(failed) {
+		request = null;
+	}
+	if(request == null)
+		alert("Error creating request object!");
+}
+function checkId() {
+	if(!checkBlank("id", 'idLabel')) {
+		return;
+	}
+	createRequest();
+	var id = document.getElementById('id').value;
+	var qry = "menu=1&id="+id;
+	var url = "signupAction.jsp?";
+	request.open("POST", url, true);
+	request.onreadystatechange = updatePage;
+	request.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	request.send(qry);
+}
+function updatePage(){
+	var label = document.getElementById("idLabel");
+	if(request.readyState==4 && request.status==200){
+		var result = request.responseText;
+		result=result.split("/결과/")[1];
+		if(result=="중복없음"){
+			label.innerHTML = "사용 가능한 아이디 입니다.";
+			label.style.color="green";
 		}
 		else {
-			$('#idLabel')
-				.html("아이디를 입력해주세요.")
-				.css("color", "red");
-			idCheck=false;
+			label.innerHTML = "이미 사용중인 아이디 입니다.";
+			label.style.color="red";
+			
 		}
-	});
-});
+	} else {
+		label.innerHTML = "통신 오류";
+		label.style.color="red";
+	}
+}
 </script>
 </head>
 <body>
@@ -139,7 +139,7 @@ $(document).ready(function(){
 <section class="centerSection">
 <h2>회원가입</h2>
 <form action="signupAction.jsp" method="post" name="signupForm" onsubmit="return checkForm();">
-	<label>아이디<input type="text" id="id" name="id" maxlength="20" placeholder="ID" oninput="onlyAlphabet(this)"></label>
+	<label>아이디<input type="text" id="id" name="id" maxlength="20" placeholder="ID" oninput="onlyAlphabet(this)" onblur="checkId()"></label>
 	<label id="idLabel" class="error"></label>
 	<label>비밀번호<input type="password" id="pw" name="password" maxlength="24" oninput="onlyAlphabet(this)" onblur="checkBlank(this.id, 'pwLabel')"></label>
 	<label id="pwLabel" class="error"></label>

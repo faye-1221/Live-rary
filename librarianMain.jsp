@@ -27,7 +27,7 @@ response.setDateHeader("Expires", 0L);
 	padding:5px;
 }
 #inputSection1{
-	width: 320px; /* 각 폼(대출,반납)의 넓이 조절*/
+	width: 500px; /* 각 폼(대출,반납)의 넓이 조절*/
 	background-color: #fefaec;
 	border-radius: 5px;
 }
@@ -37,26 +37,15 @@ response.setDateHeader("Expires", 0L);
 	background-color: #fefaec;
 	border-radius: 5px;
 }
-
-#buttonSection{
-	width: 220px; /* 각 폼(대출,반납)의 넓이 조절*/
-	background-color: #fefaec;
-	border-radius: 5px;
-	padding:5px;
-}
-#buttonSection input{
-	padding:12px;
-	width:auto;
-	margin:10px;
-	font-size:15px;
-	font-weight:bold;
-}
 #search_list{
 	margin:0px;
 	padding:0px;
 }
+#inputSection1 input[type="text"] {
+	width:260px;
+}
 #userResult input[type="text"], #bookResult input[type="text"]{
-	width:170px;
+	width:300px;
 	background-color:transparent;
 	border-radius: 0px;
 	border-top-width:0;
@@ -65,7 +54,7 @@ response.setDateHeader("Expires", 0L);
 	border-bottom-width:1;
 }
 body{
-	min-width:1470px;
+	min-width:1440px;
 	text-align:left;
 }
 form legend {
@@ -78,9 +67,6 @@ section input[type="submit"] {
 	font-size:15px;
 	font-weight:bold;
 	width:100%;
-}
-table {
-	width:830px;
 }
 table tbody tr:hover {
     background-color:rgba( 0, 0, 0, 0.1 );
@@ -124,13 +110,13 @@ function searchCheckUser() {
 }
 
 function searchCheckBook() {
-	var bookid = document.getElementById("searchbookKey").value;
+	var bookname = document.getElementById("searchbookKey").value;
 	var url = "searchkBook.jsp";
 	createRequest();
 	value.open('POST', url, true);
 	value.onreadystatechange = updateBook;
 	value.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-	value.send("bookid=" + bookid);
+	value.send("bookname=" + bookname);
 }
 
 function updateUser() {
@@ -138,6 +124,7 @@ function updateUser() {
 		var data = value.responseText;
 		var searchResult = document.getElementById("userResult");
 		searchResult.innerHTML = data;
+		document.getElementById("userResult").style.visibility="visible";
 	}
 }
 
@@ -146,6 +133,7 @@ function updateBook() {
 		var data = value.responseText;
 		var searchResult = document.getElementById("bookResult");
 		searchResult.innerHTML = data;
+		document.getElementById("bookResult").style.visibility="visible";
 	}
 }
 
@@ -164,6 +152,27 @@ function updateSearchReturn() {
 	if(value.readyState == 4 && value.status == 200) {		
 		var data = value.responseText;
 		var searchResult = document.getElementById("search_list");
+		searchResult.innerHTML = data;
+	}
+}
+
+function selectedbook() {
+	var getclick = event.currentTarget;
+	var bookid = getclick.children[0].innerHTML;
+	var bookname = getclick.children[1].innerHTML;
+	var url = "selectchbook.jsp";
+	createRequest();
+	value.open('POST', url, true);
+	value.onreadystatechange = updatechkbook;
+	value.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	bookname = bookname.replace("&nbsp;", " ");
+	value.send("bookid=" + bookid + "&bookname=" + bookname);
+}
+
+function updatechkbook() {
+	if(value.readyState == 4 && value.status == 200) {		
+		var data = value.responseText;
+		var searchResult = document.getElementById("bookResult");
 		searchResult.innerHTML = data;
 	}
 }
@@ -215,12 +224,12 @@ function logout() {
 <body>
 <%
 	String id = (String) session.getAttribute("id");
-	String admin = (String) session.getAttribute("admin");
+	String isAdmin = (String) session.getAttribute("admin");
 	if(id==null){
 		out.println("<script>alert('로그아웃 되었습니다.')</script>");
 		out.println("<script>window.open('index.html','_self')</script>");
 	}
-	else if(!admin.equals("1")){
+	else if(!isAdmin.equals("1")){
 		out.println("<script>alert('접근이 허용되지 않은 이용자입니다.')</script>");
 		out.println("<script>window.open('index.html','_self')</script>");
 	}
@@ -236,28 +245,35 @@ function logout() {
 			<span onclick="logout()" style="margin-left:20px">로그아웃</span>
 	</nav>
 </header>
+<nav class="mainMenu">
+	<button id="alarm" onclick="location.href='librarianMain.jsp'" style="font-weight:bold">대출/반납</button>
+	<button id="myCheckOut" onclick="location.href='bookregister.jsp'">신규 도서 등록</button>
+	<button id="myReservation" onclick="location.href='bookdelete.jsp'">도서 삭제</button>
+</nav>
 <section class="centerSection">
 	<section id="inputSection1">
 		<h2>대출</h2>
-		<form method="post" action="checkOut.jsp">
+		<form>
 			<fieldset>
 				<label>대출자 ID<input type="text" id="searchuserID" placeholder="대출자 아이디 입력">
 				<input type="button" value="검색" onclick="searchCheckUser()"></label>
-				<label>도서 번호<input type="text" id="searchbookKey" placeholder="도서 번호 입력">
+				<label>도서 이름<input type="text" id="searchbookKey" placeholder="도서 이름 입력">
 				<input type="button" value="검색" onclick="searchCheckBook()"></label>
 			</fieldset>
-			<fieldset id="userResult">
+		</form>
+		<form method="post" action="checkOut.jsp">
+			<fieldset id="userResult" style="visibility:hidden;">
 				<legend>대출자 정보</legend>
 				<label>아이디<input type="text" name="userid" readonly></label>
 				<label>이름<input type="text" name="username" readonly></label>
 				<label>전화번호<input type="text" name="userHP" readonly></label>
 				<label>대출 가능 여부<input type="text" name="userOk" readonly></label>
 			</fieldset>
-			<fieldset id="bookResult">
+			<fieldset id="bookResult" style="visibility:hidden;">
 				<legend>도서 정보</legend>
 				<label>번호<input type="text" name="bookid" readonly></label>
 				<label>이름<input type="text" name="bookname" readonly></label>
-				<label>대출가능<input type="text" name="bookOk" readonly></label><br>
+				<label>대출 가능 여부<input type="text" name="bookOk" readonly></label><br>
 			</fieldset>
 			<input type="submit" value="대출 승인">
 		</form>
@@ -265,16 +281,11 @@ function logout() {
 		
 	<section id="inputSection2">
 		<h2>반납</h2>
-		<form>
-			대출자 ID <input type="text" id="searchuserID2" placeholder="사용자 아이디 입력">
+		<form onsubmit="return false;">
+			대출자 ID <input type="text" id="searchuserID2" placeholder="대출자 아이디 입력">
 			<input type="button" value="검색" onclick="searchOutUser()"><br>
 			<section id="search_list"></section>
 		</form>
-	</section>
-	<section id="buttonSection">
-		<h2>도서 목록 관리</h2>
-		<span class="strech"><input type="button" value="신규 도서 등록" onclick="location.href='bookregister.jsp'">
-		<input type="button" value="도서 삭제" onclick="location.href='bookdelete.jsp'"></span>
 	</section>
 </section>
 <footer>

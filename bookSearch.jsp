@@ -199,7 +199,7 @@ input[type="button"]:disabled {
 					out.print("<td style='color:red'>대출 중</td>");
 				%>
 				<td><input type="button" id="<%=result.getString(2)%>" <%//대출 예약 사서인 경우 || 대출 중이 아닌 경우(book_id) ||  당사자가 책 5권 (예약 + 대출) 했을 경우 || 이미 당사자가 동일한 책 id를 예약 || 대출했을 경우 
-if (isAdmin || !checkOutList.contains(result.getString(2)) || limit > 3 || reservationList.contains(result.getString(2))
+if (isAdmin || !checkOutList.contains(result.getString(2)) || limit >= 3 || reservationList.contains(result.getString(2))
 		|| myCheckOutList.contains(result.getString(2)))
 	out.print("disabled");%> onclick="reservation(this.id)" value="대출 예약"> <%
 

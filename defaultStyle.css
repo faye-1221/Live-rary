@@ -25,10 +25,12 @@
 }
 .mainMenu button {
 	background-color: transparent;
+	font-size:14px;
 	margin-left: 30px;
 	border: 0;
 	outline: 0;
 	height: 35px;
+	color:#F6E8E8;
 }
 body::before {
     position: fixed;
@@ -124,11 +126,19 @@ header input[type="text"],header input[type="password"] {
 	border: 2px solid #F6E8E8;
 	border-radius:2px;
 }
-header input[type="submit"], header input[type="submit"]:hover, header input[type="submit"]:active, select {
+header input[type="submit"], header input[type="submit"]:hover, header input[type="submit"]:active {
 	padding:12px;
 	border-radius:2px;
 	background-color:#F6E8E8;
 	color:#213458;
+}
+header select, header select:focus {
+	padding:11px 10px 9px;
+	border: 2px solid #F6E8E8;
+	border-radius:2px;
+	background-color:#F6E8E8;
+	color:#213458;
+	outline:none;
 }
 
 header input:focus{

@@ -53,9 +53,6 @@ header {
 header a {
 	text-decoration:none;
 }
-header img, header span {
-	cursor:pointer;
-}
 form{
 	padding:10px;
 	color:#625772;

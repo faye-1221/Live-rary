@@ -171,12 +171,12 @@ function logout() {
 <body>
 <%
 	String id = (String) session.getAttribute("id");
-	String admin = (String) session.getAttribute("admin");
+	String isAdmin = (String) session.getAttribute("admin");
 	if(id==null){
 		out.println("<script>alert('로그아웃 되었습니다.')</script>");
 		out.println("<script>window.open('index.html','_self')</script>");
 	}
-	else if(!admin.equals("1")){
+	else if(!isAdmin.equals("1")){
 		out.println("<script>alert('접근이 허용되지 않은 이용자입니다.')</script>");
 		out.println("<script>window.open('index.html','_self')</script>");
 	}
@@ -192,6 +192,11 @@ function logout() {
 			<span onclick="logout()" style="margin-left:20px">로그아웃</span>
 	</nav>
 </header>
+<nav class="mainMenu">
+	<button id="alarm" onclick="location.href='librarianMain.jsp'">대출/반납</button>
+	<button id="myCheckOut" onclick="location.href='bookregister.jsp'" style="font-weight:bold">신규 도서 등록</button>
+	<button id="myReservation" onclick="location.href='bookdelete.jsp'">도서 삭제</button>
+</nav>
 <section class="centerSection">
 		<h2>도서 등록</h2>
 		<form method="post" action="bkregisterAction.jsp" onsubmit="return checkForm();">

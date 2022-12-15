@@ -14,11 +14,6 @@ response.setDateHeader("Expires", 0L);
 <link type="text/css" rel="stylesheet" href="defaultStyle.css">
 <%@ page import="java.sql.*, javax.sql.*, javax.naming.*,  java.util.ArrayList,java.time.LocalDate"%>
 <style>
-header {
-	padding-top: 100px;
-	top: -100px;
-}
-
 body {
 	background-image: url('image/main_bg.jpg');
 	background-size: cover;

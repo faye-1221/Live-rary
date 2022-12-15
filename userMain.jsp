@@ -11,12 +11,8 @@ response.setDateHeader("Expires", 0L);
 <head>
 <meta charset="UTF-8">
 <title>LIVE-RARY</title>
-<link type="text/css" rel="stylesheet" href="defaultStyle.css">
+<link type="text/css" rel="stylesheet" href="defaultStyle.css?ver=2">
 <style>
-header {
-	padding-top: 100px;
-	top: -100px;
-}
 
 section {
 	text-align: center;
@@ -26,6 +22,8 @@ table {
 	/* 테이블 크기 지정 */
 	width: calc(80vw);
 	max-width: 800px;
+}
+.mainMenu button {
 }
 
 </style>

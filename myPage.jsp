@@ -179,19 +179,15 @@ function logout() {
 <%
 	String id = (String) session.getAttribute("id");
 	String admin = (String) session.getAttribute("admin");
-	boolean isAdmin = false;
 	
 	if(id==null){
+		admin="0";
 		out.println("<script>alert('로그아웃 되었습니다.')</script>");
 		out.println("<script>window.open('index.html','_self')</script>");
 	}
-	else if(admin.equals("1")){
-		isAdmin = true;
-	}
-	
 %>
 <header>
-	<img src="image/logo_transparent_light.png" height="60" alt="LIVE-RARY" onclick="window.open('<%= isAdmin ? "librarianMain.jsp":"userMain.jsp" %>', '_self');">
+	<img src="image/logo_transparent_light.png" height="60" alt="LIVE-RARY" onclick="window.open('<%= admin.equals("1")?"librarianMain.jsp":"userMain.jsp" %>', '_self');">
 	<h2 style="margin-left:-80px">마이 페이지</h2>
 	<nav>
 		<span onclick="logout()" style="margin-left:20px">로그아웃</span>

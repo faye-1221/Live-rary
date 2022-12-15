@@ -14,10 +14,6 @@ response.setDateHeader("Expires", 0L);
 <link type="text/css" rel="stylesheet" href="defaultStyle.css">
 <%@ page import="java.sql.*, javax.sql.*, javax.naming.*"%>
 <style>
-header {
-	padding-top: 100px;
-	top: -100px;
-}
 
 section {
 	text-align: center;

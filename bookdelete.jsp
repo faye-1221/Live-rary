@@ -12,7 +12,7 @@ response.setDateHeader("Expires", 0L);
 <head>
 <meta charset="UTF-8">
 <title>사서 등록 - LIVE-RARY</title>
-<link type="text/css" rel="stylesheet" href="defaultStyle.css">
+<link type="text/css" rel="stylesheet" href="defaultStyle.css?ver=1">
 <style>
 section input[type="submit"] {
 	font-size:17px;
@@ -125,7 +125,7 @@ function updateChkReturn() {
 function checkForm() {
 	var chk = document.getElementsByName("selectedchk");
 	if(chk[0].value == "대출중") {
-		if(confirm("현재 이 책은 대출중입니다. 그럼에도 삭제 하시겠습니까?")) {
+		if(confirm("현재 해당 도서는 대출중입니다. 그럼에도 삭제 하시겠습니까?")) {
 			return true;
 		} else {
 			return false;
@@ -146,13 +146,12 @@ function logout() {
 <body>
 <%
 	String id = (String) session.getAttribute("id");
-	String admin = (String) session.getAttribute("admin");
-	
+	String isAdmin = (String) session.getAttribute("admin");
 	if(id==null){
 		out.println("<script>alert('로그아웃 되었습니다.')</script>");
 		out.println("<script>window.open('index.html','_self')</script>");
 	}
-	else if(!admin.equals("1")){
+	else if(!isAdmin.equals("1")){
 		out.println("<script>alert('접근이 허용되지 않은 이용자입니다.')</script>");
 		out.println("<script>window.open('index.html','_self')</script>");
 	}
@@ -168,10 +167,15 @@ function logout() {
 			<span onclick="logout()" style="margin-left:20px">로그아웃</span>
 	</nav>
 </header>
+<nav class="mainMenu">
+	<button id="alarm" onclick="location.href='librarianMain.jsp'">대출/반납</button>
+	<button id="myCheckOut" onclick="location.href='bookregister.jsp'">신규 도서 등록</button>
+	<button id="myReservation" onclick="location.href='bookdelete.jsp'" style="font-weight:bold">도서 삭제</button>
+</nav>
 <section class="centerSection">
-	<h2>책 삭제하기</h2>
+	<h2>도서 삭제</h2>
 	<form style="width:300px;margin:auto;">
-		<label>책 이름<input type="text" id="bookname" placeholder="책 이름 입력">
+		<label>도서 이름<input type="text" id="bookname" placeholder="도서 이름 입력">
 		<input type="button" value="검색" onclick="searchBook()"></label>
 	</form>
 	<section id="search_list"></section><br>
@@ -181,7 +185,7 @@ function logout() {
 			<label><input style="border-color:transparent; background-color:transparent;" name="selectedBookinfo"></label>
 			<label><input style="border-color:transparent; background-color:transparent;" name="selectedchk"></label>
 		</fieldset><br><br>
-		<input type="submit" value="책 삭제">
+		<input type="submit" value="도서 삭제">
 	</form>
 </section>
 <footer>
