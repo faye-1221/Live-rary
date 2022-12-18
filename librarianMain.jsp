@@ -237,11 +237,8 @@ function logout() {
 <header>
 	<img src="image/logo_transparent_light.png" height="60" alt="LIVE-RARY" onclick="window.open('librarianMain.jsp','_self')">
 	<form action="bookSearch.jsp">
-		<select name="searchType" id="searchType">
-				<option value="book_name">책 제목</option>
-				<option value="book_author">저자</option>
-			</select> <input type="text" name="searchValue" placeholder="도서 이름 입력"> <input type="submit" value="검색">
-
+		<input type="text" name="searchValue" placeholder="도서 이름 입력">
+		<input type="submit" value="검색">
 	</form>
 	<nav>
 		<a href="myPage.jsp"><%= id %> 님(사서)</a>
