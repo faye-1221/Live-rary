@@ -14,7 +14,8 @@ https://comet-swift-698.notion.site/Live-rary-63203b558bf24dc780575ae5f3f5c1fe
 - eclipse
 
 ## Code
-<img src="img/diagram.png">
+<img src="image/diagram.png">
+
 ## Developer
 - 김규빈: 회원 정보 관리(로그인, 회원가입, 마이페이지(수정, 탈퇴), 초기 레이아웃 구성 및 CSS 최종 수정, 책 검색, 오류 수정
 - 진민주: 유저 화면(개인 유저 기능<알림(연체, 대출 가능 목록), 대출 목록(확인 및 연장), 예약 목록(확인 및 취소), 책 검색(예약하기))
